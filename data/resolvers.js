@@ -1,43 +1,23 @@
-var fakeAuthor = {
-  id: 1,
-  firstName: 'Hello',
-  lastName: 'World'
-}
+var connectors = require('./connectors')
+var Author = connectors.Author
 
-var fakePosts = [
-  {
-    id: 1,
-    title: 'A post',
-    text: 'Some text',
-    views: 2
-  },
-  {
-    id: 2,
-    title: 'Another post',
-    text: 'Some other text',
-    views: 200
-  }
-]
-
-var resolvers = {
+const resolvers = {
   Query: {
-    author: function (root, args) {
-      return fakeAuthor
+    author: function (_, args) {
+      return Author.find({ where: args })
     },
-    allAuthors: function (root, args) {
-      return [fakeAuthor]
+    allAuthors: function (_, args) {
+      return Author.findAll()
     }
   },
-
   Author: {
-    posts: function (root, args) {
-      return fakePosts
+    posts: function (author) {
+      return author.getPosts()
     }
   },
-
   Post: {
-    author: function (root, args) {
-      return fakeAuthor
+    author: function (post) {
+      return post.getAuthor()
     }
   }
 }
