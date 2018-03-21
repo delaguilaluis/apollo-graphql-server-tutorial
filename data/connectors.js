@@ -1,6 +1,17 @@
 var Sequelize = require('sequelize')
 var casual = require('casual')
 var _ = require('lodash')
+var fetch = require('node-fetch')
+
+const FortuneCookie = {
+  getOne: function getOne () {
+    return fetch('http://fortunecookieapi.herokuapp.com/v1/cookie')
+      .then(res => res.json())
+      .then(res => {
+        return res[0].fortune.message
+      })
+  }
+}
 
 const db = new Sequelize('blog', null, null, {
   dialect: 'sqlite',
@@ -40,4 +51,4 @@ db.sync({ force: true }).then(() => {
 const Author = db.models.author
 const Post = db.models.post
 
-module.exports = { Author, Post }
+module.exports = { Author, Post, FortuneCookie }

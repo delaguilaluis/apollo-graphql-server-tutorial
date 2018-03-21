@@ -9,6 +9,7 @@
     "graphql": "^0.11.7",
     "graphql-tools": "^2.13.0",
     "lodash": "^4.17.5",
+    "node-fetch": "^2.1.1",
     "sequelize": "^4.37.3",
     "sqlite": "^2.9.1"
   },
